@@ -7,6 +7,12 @@ const debug = require("debug")("test-master");
 
 const name = "Test Masters";
 
+var mongodb_connection_string = "mongodb://localhost:27017/TestMasters";
+
+if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
+}
+
 debug("booting %s", name);
 
 var app = express();
@@ -29,15 +35,20 @@ require("./routes/card.routes.js")(app);
 require("./routes/cardset.routes.js")(app);
 require("./routes/course.routes.js")(app);
 
-app.listen(4000, () => {
-  console.log("Server running on 4000");
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 4000;
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+
+app.listen(server_port, server_ip_address, () => {
+  console.log(
+    "Server listening on " + server_port + ", port" + server_ip_address
+  );
 });
 
 mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose
-  .connect(dbConfig.url, {
+  .connect(mongodb_connection_string, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
