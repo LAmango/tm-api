@@ -1,0 +1,22 @@
+{
+  "name": "tm-api",
+  "version": "1.0.0",
+  "description": "node api that the react frontend can interact with, handles cards, cardsets, and users.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "importjs": "^3.0.2",
+    "mongoose": "^5.7.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  },
+  "author": "Lucas Albano",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/server.js"
+  }
+}
