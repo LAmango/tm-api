@@ -7,13 +7,13 @@ const debug = require("debug")("test-master");
 
 const name = "Test Masters";
 
-var mongodb_connection_string = "mongodb://localhost:27017/TestMasters";
+//var mongodb_connection_string = "mongodb://localhost:27017/TestMasters";
 
-if (process.env.OPENSHIFT_MONGODB_DB_URL) {
-  mongodb_connection_string =
-    process.env.OPENSHIFT_MONGODB_DB_URL + "mongodb-1-48qdv";
-  console.log(mongodb_connection_string);
-}
+//if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+//  mongodb_connection_string =
+//    process.env.OPENSHIFT_MONGODB_DB_URL + "mongodb-1-48qdv";
+//  console.log(mongodb_connection_string);
+//}
 
 debug("booting %s", name);
 
@@ -37,20 +37,18 @@ require("./routes/card.routes.js")(app);
 require("./routes/cardset.routes.js")(app);
 require("./routes/course.routes.js")(app);
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 4000;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var server_port = process.env.PORT || 4000;
 
-app.listen(server_port, server_ip_address, () => {
+app.listen(server_port, () => {
   console.log(
-    "Server listening on " + server_port + ", port" + server_ip_address
-  );
+    "Server listening on ", server_port);
 });
 
 mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose
-  .connect(mongodb_connection_string, {
+  .connect(dbConfig.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
