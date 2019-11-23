@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const dbConfig = require("./config/database.config.js");
 const mongoose = require("mongoose");
 const debug = require("debug")("test-master");
+const path = require("path");
+const cors = require("cors");
 
 const name = "Test Masters";
 
@@ -23,29 +25,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://lucasalbano.000webhostapp.com/card"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
-  next();
-});
+app.use(cors());
 
 require("./routes/card.routes.js")(app);
 require("./routes/cardset.routes.js")(app);
 require("./routes/course.routes.js")(app);
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 4000;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+app.use(express.static(path.join(__dirname, "build"))); //here is important thing - no static directory, because all static :)
 
-app.listen(server_port, server_ip_address, () => {
+app.get("/*", function(req, res) {
+        res.sendFile(path.join(__dirname, "build/index.html"));
+});
+
+app.listen(4000, () => {
   console.log(
-    "Server listening on " + server_port + ", port" + server_ip_address
+    "Server listening on 4000"
   );
 });
 
@@ -53,7 +47,7 @@ mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose
-  .connect(mongodb_connection_string, {
+  .connect(dbConfig.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
