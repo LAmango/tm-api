@@ -9,14 +9,6 @@ const cors = require("cors");
 
 const name = "Test Masters";
 
-//var mongodb_connection_string = "mongodb://localhost:27017/TestMasters";
-
-//if (process.env.OPENSHIFT_MONGODB_DB_URL) {
-//  mongodb_connection_string =
-//    process.env.OPENSHIFT_MONGODB_DB_URL + "mongodb-1-48qdv";
-//  console.log(mongodb_connection_string);
-//}
-
 debug("booting %s", name);
 
 var app = express();
