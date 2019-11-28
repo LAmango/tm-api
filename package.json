@@ -4,6 +4,9 @@
   "description": "node api that the react frontend can interact with, handles cards, cardsets, and users.",
   "main": "server.js",
   "dependencies": {
+    "admin-bro": "^1.4.2",
+    "admin-bro-expressjs": "^0.3.0",
+    "admin-bro-mongoose": "^0.3.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
@@ -12,6 +15,7 @@
     "mongoose": "^5.7.7"
   },
   "devDependencies": {
+    "eslint": "^6.7.1",
     "nodemon": "^1.19.4"
   },
   "author": "Lucas Albano",

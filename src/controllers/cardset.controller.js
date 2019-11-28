@@ -87,7 +87,7 @@ exports.addCard = (req, res) => {
       res.send(cardset);
     })
     .catch(err => {
-      if ((err.kind = "ObjectId")) {
+      if (err.kind === "ObjectId") {
         return res.status(404).send({
           message: "CardSet not found with id " + req.params.cardsetId
         });
@@ -112,7 +112,7 @@ exports.updateCard = (req, res) => {
         res.send(cardset);
       })
       .catch(err => {
-        if ((err.kind = "ObjectId")) {
+        if (err.kind === "ObjectId") {
           return res.status(404).send({
             message: "CardSet not found with id " + req.params.cardsetId
           });

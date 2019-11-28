@@ -22,18 +22,18 @@ app.use(cors());
 require("./routes/card.routes.js")(app);
 require("./routes/cardset.routes.js")(app);
 require("./routes/course.routes.js")(app);
+require("./services/routes.js")(app);
 
 app.use(express.static(path.join(__dirname, "build"))); //here is important thing - no static directory, because all static :)
 
 app.get("/*", function(req, res) {
-        res.sendFile(path.join(__dirname, "build/index.html"));
+  res.sendFile(path.join(__dirname, "build/index.html"));
 });
 
 var server_port = process.env.PORT || 4000;
 
 app.listen(server_port, () => {
-  console.log(
-    "Server listening on ", server_port);
+  console.log("Server listening on ", server_port);
 });
 mongoose.Promise = global.Promise;
 
