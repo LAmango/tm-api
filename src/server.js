@@ -1,4 +1,3 @@
-// Configuring the database
 var express = require("express");
 const bodyParser = require("body-parser");
 const dbConfig = require("./config/database.config.js");
