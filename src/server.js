@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const debug = require("debug")("test-master");
 const path = require("path");
 const cors = require("cors");
+const session = require("express-session");
 
 const name = "Test Masters";
 
@@ -18,10 +19,21 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+app.use(
+  session({
+    secret:
+      process.env.SECRET ||
+      "secrestkeiqouihlqifnpviqwritjnviwqivbpiub40984hdnndj3i02n2n000",
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
 require("./routes/card.routes.js")(app);
 require("./routes/cardset.routes.js")(app);
 require("./routes/course.routes.js")(app);
 require("./services/routes.js")(app);
+require("./users/routes.js")(app);
 
 app.use(express.static(path.join(__dirname, "build"))); //here is important thing - no static directory, because all static :)
 

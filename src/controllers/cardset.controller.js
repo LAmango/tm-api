@@ -1,7 +1,8 @@
 const models = require("../models/card.model.js");
+const userModel = require("../users/models.js");
 const { CardSet } = models;
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   if (!req.body.name) {
     return res.status(400).send({
       message: "Cardset content cannot be empty"
@@ -17,7 +18,7 @@ exports.create = (req, res) => {
   cardset
     .save()
     .then(data => {
-      res.send(data);
+      return res.send(data);
     })
     .catch(err => {
       res.status(500).send({

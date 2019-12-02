@@ -13,7 +13,8 @@ const CardSchema = mongoose.Schema(
 const CardSetSchema = mongoose.Schema(
   {
     name: String,
-    cards: [CardSchema]
+    cards: [CardSchema],
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
   },
   {
     timestamps: true
